@@ -1,0 +1,1 @@
+Coloca aquí carátulas opcionales y actualiza el campo poster en movies.json con su ruta relativa, por ejemplo caratulas/pelicula-01.jpg.

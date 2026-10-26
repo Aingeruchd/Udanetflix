@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#141414">
+<title>Udanetflix</title>
+<style>
+:root{--red:#e50914;--bg:#141414;--muted:#b3b3b3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif}
+body.locked{overflow:hidden}
+header{height:68px;display:flex;align-items:center;gap:28px;padding:0 4.5%;position:absolute;z-index:5;top:0;width:100%;background:linear-gradient(#090909e8,transparent)}
+.logo{font-weight:900;font-size:29px;letter-spacing:-2px;color:var(--red)}
+.brand{font-weight:800;letter-spacing:.2px;font-size:16px}
+nav{font-size:14px;display:flex;gap:18px;color:#eee}
+nav a{color:inherit;text-decoration:none;cursor:pointer}
+nav a:hover{color:#bbb}
+.right{margin-left:auto;font-size:13px;color:#eee}
+.hero{height:77vh;min-height:460px;max-height:760px;display:flex;align-items:flex-end;padding:0 4.5% 9%;position:relative;background:radial-gradient(ellipse at 72% 32%,#5a1c26 0%,#282027 32%,#101010 75%);background-size:cover;background-position:center 30%}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 0%,#141414bd 22%,transparent 72%),linear-gradient(90deg,#141414 0%,#141414b0 38%,transparent 78%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:560px;padding-top:90px}
+.kicker{font-size:13px;letter-spacing:4px;color:#ddd;font-weight:bold;margin-bottom:12px}
+h1{font-size:clamp(38px,5vw,64px);line-height:.98;margin:0 0 18px;text-shadow:0 2px 12px #000}
+.hero p{font-size:17px;line-height:1.5;max-width:520px;color:#f1f1f1;text-shadow:0 2px 8px #000}
+.actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{padding:12px 24px;font-size:16px;display:flex;align-items:center;gap:9px;border:0;border-radius:4px;font-weight:700;cursor:pointer;transition:filter .15s,transform .15s}
+.btn:hover{filter:brightness(.88)}.btn:active{transform:scale(.98)}
+.play{background:#fff;color:#111}.more{background:#6d6d6eb3;color:white}
+main{margin-top:-20px;position:relative;z-index:2;padding-bottom:45px}
+.shelf{margin:0 0 30px;padding-left:4.5%}
+.shelf h2{font-size:20px;margin:0 0 12px}
+.cards{display:flex;gap:10px;overflow-x:auto;padding:2px 4.5% 15px 0;scrollbar-width:thin;scrollbar-color:#555 transparent}
+.movie{flex:0 0 clamp(155px,17vw,225px);cursor:pointer;transition:transform .2s;position:relative;outline-offset:4px}
+.movie:hover{transform:scale(1.045);z-index:2}
+.poster{height:clamp(210px,22vw,300px);border-radius:4px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:15px;background:linear-gradient(145deg,#25344b,#694454 55%,#d5a56c);background-size:cover;background-position:center}
+.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000e,transparent 75%),radial-gradient(circle at 65% 25%,#ffffff12,transparent 35%);pointer-events:none}
+.poster-title{position:relative;z-index:1;font-size:clamp(17px,1.6vw,22px);font-weight:900;text-transform:uppercase;line-height:1.02;text-shadow:0 2px 8px #000;overflow-wrap:anywhere}
+.badge{position:absolute;z-index:2;top:10px;left:10px;background:var(--red);padding:4px 6px;border-radius:2px;font-size:10px;font-weight:bold;letter-spacing:1px}
+.movie-meta{font-size:12px;color:#ccc;padding:8px 2px 0;display:flex;gap:8px;align-items:center}.tag{border:1px solid #777;padding:1px 4px;font-size:10px}
+footer{color:#777;padding:15px 4.5% 35px;font-size:12px}
+#details{display:none;position:fixed;inset:0;z-index:15;background:#080808;overflow-y:auto}
+#details.open{display:block;animation:detailIn .22s ease-out}
+@keyframes detailIn{from{opacity:0;transform:scale(.99)}to{opacity:1;transform:scale(1)}}
+.detail-backdrop{height:min(72vh,700px);min-height:430px;position:relative;background-color:#202020;background-size:cover;background-position:center 30%;display:flex;align-items:flex-end;padding:0 7% 55px}
+.detail-backdrop:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#080808 0%,#080808b8 20%,transparent 72%),linear-gradient(90deg,#080808 0%,#080808a8 38%,transparent 100%);pointer-events:none}
+.detail-content{position:relative;z-index:1;max-width:660px;padding-top:80px}
+.detail-close{position:absolute;right:24px;top:24px;z-index:3;width:42px;height:42px;border:0;border-radius:50%;background:#181818e8;color:#fff;font-size:27px;cursor:pointer}
+.detail-kicker{font-size:12px;letter-spacing:4px;font-weight:bold;color:#ddd;margin-bottom:14px}
+.detail-title{font-size:clamp(38px,6vw,70px);line-height:1;margin:0 0 18px;text-shadow:0 2px 12px #000}
+.detail-meta{display:flex;gap:12px;align-items:center;color:#ddd;font-size:14px;margin:0 0 18px;flex-wrap:wrap}.detail-hd{border:1px solid #888;border-radius:3px;padding:2px 5px;font-size:11px}
+.detail-description{font-size:17px;line-height:1.55;max-width:600px;color:#f1f1f1;margin:0 0 24px;text-shadow:0 2px 8px #000}
+.detail-actions{display:flex;gap:12px;flex-wrap:wrap}.detail-actions .btn{min-height:46px}
+.detail-lower{padding:24px 7% 60px;color:#aaa;max-width:900px;line-height:1.6}.detail-lower strong{color:#ddd}
+#player{display:none;position:fixed;inset:0;background:#000;z-index:20;align-items:center;justify-content:center;flex-direction:column}
+#player.open{display:flex}#video{width:100%;height:100%;object-fit:contain}.close{position:absolute;top:22px;left:22px;z-index:2;background:#111b;color:white;border:1px solid #777;border-radius:50%;width:42px;height:42px;font-size:24px;cursor:pointer}
+.player-title{position:absolute;left:24px;bottom:24px;color:#fff;text-shadow:0 2px 8px #000;font-size:15px}
+#error{position:absolute;bottom:25px;left:24px;right:24px;color:#fff;background:#5b1010;padding:12px;display:none}
+@media(max-width:650px){
+ header{gap:12px}.brand{font-size:14px}nav{display:none}.hero{height:68vh;padding-bottom:70px;background-position:center}.hero p{font-size:14px}.hero-content{max-width:95%}
+ .shelf h2{font-size:17px}.movie{flex-basis:145px}.poster{height:205px}.detail-backdrop{height:72vh;min-height:500px;padding:0 6% 35px;background-position:center}
+ .detail-title{font-size:42px}.detail-description{font-size:15px}.detail-content{max-width:100%}.detail-close{right:14px;top:14px}.detail-lower{padding:20px 6% 45px}
+ .btn{padding:11px 15px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">N</div><div class="brand">Udanetflix</div>
+  <nav><a href="#inicio">Inicio</a><a href="#catalogo">Películas</a><a href="#catalogo">Mi lista</a></nav>
+  <div class="right">🎬 Una noche especial</div>
+</header>
+<section class="hero" id="inicio">
+ <div class="hero-content">
+  <div class="kicker">U · PRESENTA</div>
+  <h1 id="heroTitle">Una noche de película</h1>
+  <p id="heroDesc">Palomitas listas, luces apagadas y una selección de historias para disfrutar juntos.</p>
+  <div class="actions"><button class="btn play" id="heroPlay">▶ Reproducir</button><button class="btn more" id="catalogButton">ⓘ Ver catálogo</button></div>
+ </div>
+</section>
+<main id="catalogo">
+ <section class="shelf"><h2>Porque hoy toca maratón</h2><div class="cards" id="row1"></div></section>
+ <section class="shelf"><h2>Historias para una noche especial</h2><div class="cards" id="row2"></div></section>
+ <section class="shelf"><h2>Quizá te guste también</h2><div class="cards" id="row3"></div></section>
+</main>
+<footer>Udanetflix · Una sorpresa hecha con cariño. Interfaz inspirada en las plataformas de streaming.</footer>
+
+<section id="details" aria-label="Información de la película">
+ <button class="detail-close" id="detailClose" aria-label="Volver al catálogo">×</button>
+ <div class="detail-backdrop" id="detailBackdrop"><div class="detail-content">
+  <div class="detail-kicker">U · UDANETFLIX</div><h1 class="detail-title" id="detailTitle">Título</h1>
+  <div class="detail-meta"><span>Especialmente para ti</span><span class="detail-hd">HD</span><span id="detailGenre">Película</span></div>
+  <p class="detail-description" id="detailDescription"></p>
+  <div class="detail-actions"><button class="btn play" id="detailPlay">▶ Reproducir</button><button class="btn more" id="detailRestart">↺ Ver desde el principio</button></div>
+ </div></div>
+ <div class="detail-lower"><strong>Sobre esta película</strong><p id="detailInfo"></p><span>Una selección especial de Udanetflix.</span></div>
+</section>
+
+<div id="player"><button class="close" id="close" aria-label="Cerrar reproductor">×</button><video id="video" controls playsinline></video><div class="player-title" id="playerTitle"></div><div id="error"></div></div>
+<script>
+const rows=[[0,1,2,3,4,5],[6,7,8,9,10,11],[3,5,7,0,9,11]];
+let movies=[];
+let selectedMovieIndex=null;
+const playbackPositions={};
+const $=id=>document.getElementById(id);
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* Admite poster: "caratulas/foto.jpg" y también poster: "foto.jpg"
+   (en ese caso busca primero dentro de caratulas y luego en la raíz). */
+function posterCandidates(value){
+ if(!value)return [];
+ const p=String(value).trim().replace(/^\.?\//,'');
+ if(!p)return [];
+ if(p.includes('/'))return [p];
+ return ['caratulas/'+p,p];
+}
+function setPosterBackground(element,value,fallbackColors){
+ const candidates=posterCandidates(value);
+ element.style.backgroundImage='';
+ element.style.backgroundColor='#242424';
+ if(!candidates.length){element.style.backgroundImage=fallbackColors||'linear-gradient(145deg,#25344b,#694454 55%,#d5a56c)';return;}
+ let index=0;
+ const tryNext=()=>{
+  if(index>=candidates.length){
+   element.style.backgroundImage=fallbackColors||'linear-gradient(145deg,#25344b,#694454 55%,#d5a56c)';
+   return;
+  }
+  const url=candidates[index++];
+  const img=new Image();
+  img.onload=()=>{element.style.backgroundImage=`url("${url.replace(/["\\]/g,'')}")`;element.style.backgroundSize='cover';element.style.backgroundPosition='center';};
+  img.onerror=tryNext;
+  img.src=url;
+ };
+ tryNext();
+}
+function render(){
+ const targets=[$('row1'),$('row2'),$('row3')];
+ targets.forEach((target,r)=>{
+  target.innerHTML='';
+  rows[r].forEach(i=>{
+   const m=movies[i];if(!m)return;
+   const el=document.createElement('article');el.className='movie';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label','Ver información de '+m.title);
+   const poster=document.createElement('div');poster.className='poster';
+   setPosterBackground(poster,m.poster,m.colors||'linear-gradient(145deg,#25344b,#694454 55%,#d5a56c)');
+   poster.innerHTML=(m.badge?`<span class="badge">${esc(m.badge)}</span>`:'')+`<div class="poster-title">${esc(m.title)}</div>`;
+   el.appendChild(poster);
+   const meta=document.createElement('div');meta.className='movie-meta';meta.innerHTML=`<span>HD</span><span class="tag">${esc(m.genre||'Película')}</span>`;
+   el.appendChild(meta);
+   el.addEventListener('click',()=>openDetails(i));
+   el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetails(i)}});
+   target.appendChild(el);
+  });
+ });
+ const featured=movies.find(m=>m.heroTitle==='18 Velas')
+   || movies.find(m=>String(m.title||'').trim().toLowerCase()==='18 velas')
+   || movies.find(m=>m.featured)
+   || movies[0];
+ if(featured){
+  $('heroTitle').textContent=featured.heroTitle||featured.title;
+  $('heroDesc').textContent=featured.description||'Una historia para disfrutar juntos.';
+  setPosterBackground($('inicio'),featured.poster,'radial-gradient(ellipse at 72% 32%,#5a1c26 0%,#282027 32%,#101010 75%)');
+  $('heroPlay').onclick=()=>openDetails(movies.indexOf(featured));
+ }
+}
+function openDetails(i){
+ const m=movies[i];if(!m)return;selectedMovieIndex=i;
+ const bgCandidates=posterCandidates(m.poster);
+ $('detailBackdrop').style.backgroundImage='linear-gradient(0deg,#080808 0%,#080808b8 20%,transparent 72%),linear-gradient(90deg,#080808 0%,#080808a8 38%,transparent 100%)';
+ $('detailBackdrop').style.backgroundColor='#202020';
+ if(bgCandidates.length){
+  let n=0;
+  const tryBg=()=>{
+   if(n>=bgCandidates.length)return;
+   const url=bgCandidates[n++],img=new Image();
+   img.onload=()=>{$('detailBackdrop').style.backgroundImage=`linear-gradient(0deg,#080808 0%,#080808b8 20%,transparent 72%),linear-gradient(90deg,#080808 0%,#080808a8 38%,transparent 100%),url("${url.replace(/["\\]/g,'')}")`;};
+   img.onerror=tryBg;img.src=url;
+  };tryBg();
+ }
+ $('detailTitle').textContent=m.title||'Película';
+ $('detailGenre').textContent=m.genre||'Película';
+ $('detailDescription').textContent=m.description||`Una historia de ${String(m.genre||'cine').toLowerCase()} para disfrutar en una noche especial.`;
+ $('detailInfo').textContent=m.description||`${m.title||'Esta película'} forma parte de la selección especial de Udanetflix.`;
+ $('detailPlay').textContent=playbackPositions[i]>2?'▶ Continuar viendo':'▶ Reproducir';
+ $('details').classList.add('open');document.body.classList.add('locked');
+}
+function closeDetails(){$('details').classList.remove('open');document.body.classList.remove('locked');}
+function playMovie(i,fromBeginning=false){
+ const m=movies[i];if(!m||!m.video){alert('Esta película todavía no tiene un vídeo asignado.');return;}
+ const v=$('video');$('error').style.display='none';$('playerTitle').textContent=m.title;
+ v.pause();v.removeAttribute('src');v.load();v.src=m.video;
+ $('player').classList.add('open');closeDetails();document.body.classList.add('locked');
+ const startAt=fromBeginning?0:(playbackPositions[i]||0);
+ const tryPlay=()=>{
+  if(startAt>0){try{v.currentTime=startAt;}catch(e){}}
+  v.play().catch(()=>{$('error').textContent='No se ha podido reproducir el vídeo. Comprueba que el archivo está publicado y que la ruta es correcta.';$('error').style.display='block';});
+ };
+ v.addEventListener('loadedmetadata',tryPlay,{once:true});
+ v.addEventListener('timeupdate',()=>{if(selectedMovieIndex===i&&Number.isFinite(v.currentTime))playbackPositions[i]=v.currentTime;});
+ v.addEventListener('ended',()=>{playbackPositions[i]=0;});
+}
+function closePlayer(){
+ const v=$('video');
+ if(selectedMovieIndex!==null&&Number.isFinite(v.currentTime)&&!v.ended)playbackPositions[selectedMovieIndex]=v.currentTime;
+ v.pause();v.removeAttribute('src');v.load();$('player').classList.remove('open');document.body.classList.remove('locked');
+}
+$('catalogButton').addEventListener('click',()=>$('catalogo').scrollIntoView({behavior:'smooth'}));
+$('detailClose').addEventListener('click',closeDetails);
+$('detailPlay').addEventListener('click',()=>{if(selectedMovieIndex!==null)playMovie(selectedMovieIndex,false)});
+$('detailRestart').addEventListener('click',()=>{if(selectedMovieIndex!==null)playMovie(selectedMovieIndex,true)});
+$('details').addEventListener('click',e=>{if(e.target===$('details'))closeDetails()});
+$('close').addEventListener('click',closePlayer);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('player').classList.contains('open'))closePlayer();else closeDetails();}});
+fetch('./movies.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('No se pudo cargar movies.json');return r.json()}).then(data=>{movies=data.movies||[];render()}).catch(()=>{document.querySelector('.hero-content').insertAdjacentHTML('beforeend','<p>No se ha podido cargar el catálogo. Comprueba que movies.json está junto a index.html.</p>')});
+</script>
+</body>
+</html>

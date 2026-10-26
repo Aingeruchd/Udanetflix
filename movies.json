@@ -1,0 +1,94 @@
+{
+  "movies": [
+    {
+      "title": "La última aventura",
+      "genre": "Aventura",
+      "colors": "linear-gradient(145deg,#172c42,#28716c 52%,#e1a45b)",
+      "poster": "caratulas/pelicula-01.jpeg",
+      "badge": "ORIGINAL",
+      "video": "videos/pelicula-01.mp4"
+    },
+    {
+      "title": "A medianoche",
+      "genre": "Misterio",
+      "colors": "linear-gradient(145deg,#090d24,#433a68 55%,#c15a63)",
+      "poster": "caratulas/pelicula-02.jpeg",
+      "badge": "TOP 10",
+      "video": "videos/pelicula-02.mp4"
+    },
+    {
+      "title": "Un plan perfecto",
+      "genre": "Comedia",
+      "colors": "linear-gradient(145deg,#eea45b,#db5c55 52%,#562f5e)",
+      "poster": "caratulas/pelicula-03.jpeg",
+      "video": "videos/pelicula-03.mp4"
+    },
+    {
+      "title": "El otro lado",
+      "genre": "Suspense",
+      "colors": "linear-gradient(145deg,#101a21,#35616c 50%,#a5a477)",
+      "poster": "caratulas/pelicula-04.jpeg",
+      "video": "videos/pelicula-04.mp4"
+    },
+    {
+      "title": "Días de verano",
+      "genre": "Drama",
+      "colors": "linear-gradient(145deg,#6db9c0,#f0c18c 58%,#dc8266)",
+      "poster": "caratulas/pelicula-05.jpeg",
+      "video": "videos/pelicula-05.mp4"
+    },
+    {
+      "title": "Código secreto",
+      "genre": "Acción",
+      "colors": "linear-gradient(145deg,#111,#4d263d 48%,#a84a3c)",
+      "poster": "caratulas/pelicula-06.jpeg",
+      "video": "videos/pelicula-06.mp4"
+    },
+    {
+      "title": "La gran escapada",
+      "genre": "Aventura",
+      "colors": "linear-gradient(145deg,#275044,#7a9c64 48%,#e2c17d)",
+      "poster": "caratulas/pelicula-07.jpeg",
+      "video": "videos/pelicula-07.mp4"
+    },
+    {
+      "title": "Un lugar llamado hogar",
+      "genre": "Drama",
+      "colors": "linear-gradient(145deg,#342c49,#9e6474 55%,#e8b77e)",
+      "poster": "caratulas/pelicula-08.jpeg",
+      "video": "videos/pelicula-08.mp4"
+    },
+    {
+      "title": "La noche infinita",
+      "genre": "Misterio",
+      "colors": "linear-gradient(145deg,#070d1e,#203f63 55%,#8c4155)",
+      "poster": "caratulas/pelicula-09.jpeg",
+      "video": "videos/pelicula-09.mp4"
+    },
+    {
+      "title": "Pequeñas casualidades",
+      "genre": "Comedia",
+      "colors": "linear-gradient(145deg,#c8b4d8,#e9a06d 55%,#a84752)",
+      "poster": "caratulas/pelicula-10.jpeg",
+      "video": "videos/pelicula-10.mp4"
+    },
+    {
+      "title": "El último verano",
+      "genre": "Drama",
+      "colors": "linear-gradient(145deg,#144b5c,#d69b63 60%,#a74b42)",
+      "poster": "caratulas/pelicula-11.jpg",
+      "video": "videos/pelicula-11.mp4"
+    },
+    {
+      "title": "18 Velas",
+      "genre": "Drama",
+      "colors": "linear-gradient(145deg,#4a1834,#d34c5b 48%,#f4c66b)",
+      "poster": "caratulas/pelicula-12.jpg",
+      "badge": "RECOMENDADO",
+      "video": "videos/sorpresa-cumple.mp4",
+      "description": "Una historia única sobre la amistad, los recuerdos y todo lo que queda por vivir.",
+      "heroTitle": "18 Velas",
+      "featured": false
+    }
+  ]
+}
